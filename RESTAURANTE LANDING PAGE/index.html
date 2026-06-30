@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sam's Pratos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=MonteCarlo&family=Shadows+Into+Light&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ─── TOKENS ─────────────────────────────────────────── */
+      :root {
+        --cor-principal: #660000ff;
+        --cor-principal-2: #990033ff;
+        --cor-principal-3: #5f021fff;
+        --cor-secundária: #ff9000ff;
+        --cor-contraste: #ffffff;
+        --cor-fundo: #fdf6f0;
+        --cor-texto: #2a0a0a;
+        --cor-texto-suave: #7a3030;
+
+        --corpo: 1rem;
+        --h3: 1.563rem;
+        --h2: 1.938rem;
+        --h1: 2.438rem;
+
+        --radius: 12px;
+        --shadow: 0 4px 24px rgba(102, 0, 0, 0.1);
+        --transition: 0.25s ease;
+      }
+
+      /* ─── RESET / BASE ───────────────────────────────────── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Josefin Sans", sans-serif;
+        font-size: var(--corpo);
+        color: var(--cor-texto);
+        background-color: var(--cor-fundo);
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      /* ─── HEADER ─────────────────────────────────────────── */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        background-color: var(--cor-principal);
+        color: var(--cor-contraste);
+        z-index: 900;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+      }
+
+      .logo h1 {
+        font-family: "MonteCarlo", cursive;
+        font-size: 2rem;
+        font-weight: 400;
+        color: var(--cor-contraste);
+        letter-spacing: 0.02em;
+      }
+
+      nav {
+        display: flex;
+        gap: 2.5rem;
+      }
+
+      nav a {
+        color: var(--cor-contraste);
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      /* ─── HERO ───────────────────────────────────────────── */
+      .hero {
+        margin-top: 64px;
+        background-image:
+          linear-gradient(
+            130deg,
+            color-mix(in srgb, var(--cor-principal) 80%, transparent) 30%,
+            color-mix(in srgb, var(--cor-principal-3) 65%, transparent)
+          ),
+          url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80");
+        background-size: cover;
+        background-position: center;
+        min-height: 92vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 5rem clamp(1.5rem, 8vw, 7rem);
+        color: var(--cor-contraste);
+        gap: 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.4rem, 6vw, 5rem);
+        font-weight: 700;
+        line-height: 1.1;
+        max-width: 680px;
+      }
+
+      .hero h1 span {
+        color: var(--cor-secundária);
+      }
+
+      .hero p {
+        font-size: clamp(1rem, 2.2vw, 1.35rem);
+        max-width: 560px;
+        line-height: 1.65;
+      }
+
+      .cta {
+        display: inline-block;
+        background-color: var(--cor-secundária);
+        color: var(--cor-principal-3);
+        padding: 0.85rem 1.8rem;
+        border-radius: 999px;
+        border: 3px solid var(--cor-contraste);
+        font-weight: 700;
+        font-size: 1.05rem;
+        letter-spacing: 0.04em;
+        text-decoration: none;
+        margin-top: 0.5rem;
+      }
+      .cta:hover {
+        background-color: #e07f00;
+        transform: translateY(-2px);
+      }
+
+      /* ─── MAIN WRAPPER ───────────────────────────────────── */
+      main {
+        display: flex;
+        flex-direction: column;
+        gap: 6rem;
+        padding-bottom: 6rem;
+      }
+
+      /* ─── SECTION DIVIDER ────────────────────────────────── */
+      .decoration {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 2rem clamp(1.5rem, 6vw, 4rem) 0;
+        color: var(--cor-principal-3);
+      }
+
+      .decoration h2 {
+        font-size: var(--h2);
+        white-space: nowrap;
+        font-weight: 700;
+      }
+
+      .h22 {
+        flex: 1;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--cor-principal),
+          var(--cor-secundária)
+        );
+        border-radius: 999px;
+      }
+
+      /* ─── MENU (CARDÁPIO) ────────────────────────────────── */
+      .menu {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 2rem;
+        padding: 0 clamp(1.5rem, 6vw, 4rem);
+        background-color: transparent;
+      }
+
+      .cardapio {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        background-color: var(--cor-contraste);
+        border-radius: var(--radius);
+        padding: 1.25rem 1.25rem 1.5rem;
+        box-shadow: var(--shadow);
+        transition:
+          transform var(--transition),
+          box-shadow var(--transition);
+      }
+      .cardapio:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 32px rgba(102, 0, 0, 0.15);
+      }
+
+      .cardapio img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: calc(var(--radius) - 4px);
+        border: 3px solid var(--cor-secundária);
+      }
+
+      .cardapio h3 {
+        font-size: var(--h3);
+        font-weight: 700;
+        color: var(--cor-principal);
+        text-align: center;
+      }
+
+      .cardapio .prato-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+      }
+
+      .cardapio .prato-info p {
+        font-size: 0.95rem;
+        color: var(--cor-texto-suave);
+      }
+
+      .cardapio .prato-info .preco {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--cor-principal-2);
+      }
+
+      /* ─── ABOUT ──────────────────────────────────────────── */
+      .about {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem 4rem;
+        padding: 0 clamp(1.5rem, 6vw, 4rem);
+        align-items: start;
+      }
+
+      .about h2 {
+        font-size: var(--h2);
+        color: var(--cor-principal);
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .about p {
+        line-height: 1.75;
+        color: var(--cor-texto);
+        font-size: 1rem;
+      }
+
+      .about-diferenciais {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+      }
+
+      .diferencial-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--cor-principal-3);
+      }
+
+      .diferencial-item::before {
+        content: "";
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background-color: var(--cor-secundária);
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      /*---- HISTÓRIA -----------------------------------------*/
+
+      .historia {
+        padding: 2rem clamp(1.5rem, 6vw, 4rem) 3rem;
+        background: linear-gradient(
+          130deg,
+          color-mix(in srgb, var(--cor-principal) 80%, transparent) 30%,
+          color-mix(in srgb, var(--cor-principal-3) 65%, transparent)
+        );
+        color: var(--cor-contraste);
+      }
+
+      .historia > div {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+        align-items: start;
+      }
+
+      .historia-item {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: var(--radius);
+        padding: 1.25rem;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+      }
+
+      .historia-item h2 {
+        color: var(--cor-secundária);
+        margin-bottom: 0.75rem;
+      }
+
+      .historia-item p {
+        line-height: 1.7;
+      }
+      /* ─── AVALIAÇÕES ─────────────────────────────────────── */
+      .avaliações {
+        padding: 0 clamp(1.5rem, 6vw, 4rem);
+      }
+
+      .avaliações > h2 {
+        font-size: var(--h2);
+        color: var(--cor-principal);
+        font-weight: 700;
+        margin-bottom: 2rem;
+      }
+
+      .reviews-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .review-card {
+        background-color: var(--cor-contraste);
+        border-left: 4px solid var(--cor-secundária);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        box-shadow: var(--shadow);
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .stars-static {
+        display: flex;
+        gap: 3px;
+      }
+
+      .stars-static .star {
+        font-size: 1.3rem;
+        color: #ddd;
+      }
+      .stars-static .star.active {
+        color: #ffca28;
+      }
+
+      .review-card p {
+        font-size: 0.97rem;
+        line-height: 1.65;
+        color: var(--cor-texto);
+        font-style: italic;
+      }
+
+      .review-card cite {
+        font-size: 0.875rem;
+        font-style: normal;
+        font-weight: 700;
+        color: var(--cor-texto-suave);
+      }
+
+      /* ─── RESERVE ────────────────────────────────────────── */
+      .reserve {
+        padding: 0 clamp(1.5rem, 6vw, 4rem);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: start;
+      }
+
+      .reserve-text h2 {
+        font-size: var(--h2);
+        color: var(--cor-principal);
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+      }
+
+      .reserve-text p {
+        color: var(--cor-texto-suave);
+        line-height: 1.65;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+      }
+
+      form input,
+      form select,
+      form textarea {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e8d0d0;
+        border-radius: 8px;
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.97rem;
+        color: var(--cor-texto);
+        background-color: var(--cor-contraste);
+        transition:
+          border-color var(--transition),
+          box-shadow var(--transition);
+      }
+
+      form input:focus,
+      form select:focus,
+      form textarea:focus {
+        border-color: var(--cor-principal-2);
+        box-shadow: 0 0 0 3px rgba(153, 0, 51, 0.12);
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.85rem;
+      }
+
+      form textarea {
+        resize: vertical;
+        min-height: 90px;
+      }
+
+      form button {
+        padding: 0.9rem 1.5rem;
+        background-color: var(--cor-principal);
+        color: var(--cor-contraste);
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition:
+          background-color var(--transition),
+          transform var(--transition);
+      }
+
+      form button:hover {
+        background-color: var(--cor-principal-2);
+        transform: translateY(-1px);
+      }
+
+      /* ─── FOOTER ─────────────────────────────────────────── */
+      footer {
+        background-color: var(--cor-principal-3);
+        color: var(--cor-contraste);
+        padding: 2.5rem clamp(1.5rem, 6vw, 4rem);
+        margin-top: auto;
+      }
+
+      footer > div {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem 2rem;
+      }
+
+      footer p {
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+
+      footer p:last-of-type {
+        margin-left: auto;
+      }
+
+      /* ─── WHATSAPP WIDGET ────────────────────────────────── */
+      .whatsapp-widget {
+        position: fixed;
+        width: 58px;
+        height: 58px;
+        bottom: 36px;
+        right: 36px;
+        background-color: #25d366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+        z-index: 1000;
+        transition:
+          transform var(--transition),
+          background-color var(--transition);
+      }
+      .whatsapp-widget:hover {
+        background-color: #1ebc58;
+        transform: scale(1.1);
+      }
+
+      /* ─── RESPONSIVE ─────────────────────────────────────── */
+      @media (max-width: 900px) {
+        .about {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .reserve {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        header {
+          padding: 0 1.25rem;
+          height: 56px;
+        }
+
+        .logo h1 {
+          font-size: 1.5rem;
+        }
+
+        nav {
+          gap: 1.25rem;
+        }
+        nav a {
+          font-size: 0.85rem;
+        }
+
+        .hero {
+          margin-top: 56px;
+          padding: 3.5rem 1.5rem;
+        }
+
+        .menu {
+          padding: 0 1rem;
+          gap: 1.25rem;
+        }
+
+        .about,
+        .avaliações,
+        .reserve {
+          padding: 0 1rem;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+
+        footer > div {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.4rem;
+        }
+        footer p:last-of-type {
+          margin-left: 0;
+        }
+
+        .whatsapp-widget {
+          bottom: 20px;
+          right: 20px;
+          width: 50px;
+          height: 50px;
+        }
+        .whatsapp-widget svg {
+          width: 26px;
+          height: 26px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition: none !important;
+        }
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <h1>Sam's Pratos</h1>
+      </div>
+      <nav>
+        <a href="#about">Quem somos</a>
+        <a href="#menu">Menu</a>
+        <a href="#reserve">Reserve</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <h1>Sabores deliciosos.<span> Momentos inesquecíveis.</span></h1>
+        <p>
+          Somos um restaurante comprometido com a experiência do cliente,
+          equilibrando preço e sabor em cada prato, criando memórias à mesa.
+        </p>
+        <a class="cta" href="#reserve">Reserve sua mesa</a>
+      </section>
+
+      <!-- DIVIDER -->
+      <div class="decoration">
+        <h2>Confira os nossos pratos</h2>
+        <div class="h22"></div>
+      </div>
+
+      <!-- MENU -->
+      <section id="menu" class="menu">
+        <div class="cardapio">
+          <img src="SRC/IMAGES/imagem1.png" alt="Frango assado ao molho" />
+          <h3>Frango assado ao molho</h3>
+          <div class="prato-info">
+            <p>Serve: 3 pessoas</p>
+            <p class="preco">R$ 120,00</p>
+          </div>
+        </div>
+        <div class="cardapio">
+          <img
+            src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80"
+            alt="Costela grelhada"
+          />
+          <h3>Costela grelhada</h3>
+          <div class="prato-info">
+            <p>Serve: 2 pessoas</p>
+            <p class="preco">R$ 98,00</p>
+          </div>
+        </div>
+        <div class="cardapio">
+          <img
+            src="https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=600&q=80"
+          />
+          <h3>Pizza napolitana</h3>
+          <div class="prato-info">
+            <p>Serve: 2 pessoas</p>
+            <p class="preco">R$ 65,00</p>
+          </div>
+        </div>
+        <div class="cardapio">
+          <img src="SRC/IMAGES/imagem2.jpg" alt="Feijoada completa" />
+          <h3>Feijoada completa</h3>
+          <div class="prato-info">
+            <p>Serve: 4 pessoas</p>
+            <p class="preco">R$ 145,00</p>
+          </div>
+        </div>
+        <div class="cardapio">
+          <img src="SRC/IMAGES/imagem4.jpg" alt="Feijoada completa" />
+          <h3>Tilápia empanada</h3>
+          <div class="prato-info">
+            <p>Serve: 1 pessoa</p>
+            <p class="preco">R$ 49,00</p>
+          </div>
+        </div>
+        <div class="cardapio">
+          <img src="SRC/IMAGES/imagem5.jpg" alt="Feijoada completa" />
+          <h3>Macarrão a bolonhesa</h3>
+          <div class="prato-info">
+            <p>Serve: 4 pessoas</p>
+            <p class="preco">R$ 165,00</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="about">
+        <div>
+          <h2>Sobre nós</h2>
+          <p>
+            Nosso restaurante possui uma equipe de cozinheiros argentinos,
+            especializados em pratos da região, como feijoadas, carnes nobres e
+            frangos. Com a influência de quem percorre toda a América Latina,
+            nossos chefs buscam aprimoramento constante, incorporando novos
+            sabores e ingredientes aos pratos totalmente artesanais.
+          </p>
+        </div>
+        <div>
+          <h2>O que nos torna especiais?</h2>
+          <div class="about-diferenciais">
+            <span class="diferencial-item">Preços acessíveis</span>
+            <span class="diferencial-item"
+              >Temperos importados do Mediterrâneo</span
+            >
+            <span class="diferencial-item"
+              >Equipe de cozinheiros altamente qualificada</span
+            >
+            <span class="diferencial-item">Agilidade no serviço</span>
+          </div>
+        </div>
+      </section>
+      <section class="historia">
+        <div>
+          <div class="historia-item">
+            <h2>Nossa história</h2>
+            <p>
+              Desde 1988, a marca cresceu com tradição, paixão e um toque
+              argentino que encanta gerações.
+            </p>
+          </div>
+
+          <div class="historia-item">
+            <h2>1988</h2>
+            <p>
+              O restaurante abre as portas, fruto do sonho de dois argentinos,
+              El Ricóin e Chapo, irmãos de sangue, que, ensinados pela mãe a
+              cozinharem, levaram o sonho para o seu trabalho.
+            </p>
+          </div>
+
+          <div class="historia-item">
+            <h2>1995</h2>
+            <p>
+              Com o sucesso estrondoso das empanadas e dos cortes de carne
+              típicos que traziam o sabor autêntico de Buenos Aires, o pequeno
+              salão inicial já não dava vazão à clientela. Os irmãos decidiram
+              expandir, inaugurando uma charmosa área externa com videiras e
+              música ao vivo, transformando o restaurante em um ponto de
+              encontro cultural e gastronômico na cidade.
+            </p>
+          </div>
+
+          <div class="historia-item">
+            <h2>2005</h2>
+            <p>
+              A tragédia e a superação marcaram este ano. Após o falecimento
+              precoce de El Ricóin, Chapo pensou em fechar as portas. No
+              entanto, o apoio massivo dos clientes fiéis e a entrada de sua
+              sobrinha, Valentina, na cozinha trouxeram fôlego novo ao negócio.
+              Valentina combinou as receitas tradicionais da avó com técnicas
+              contemporâneas, rendendo ao restaurante sua primeira estrela em
+              guias gastronômicos locais.
+            </p>
+          </div>
+
+          <div class="historia-item">
+            <h2>2018</h2>
+            <p>
+              Celebrando 30 anos de história, a marca se consolidou como um
+              patrimônio da culinária argentina na região. Para comemorar, foi
+              lançado um livro de memórias e receitas, além de uma reformulação
+              no menu que resgatou os pratos primeiramente servidos em 1988,
+              mantendo vivo o legado e o tempero da matriarca da família.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- AVALIAÇÕES -->
+      <section class="avaliações">
+        <h2>O que os clientes dizem</h2>
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="stars-static">
+              <span class="star active">&#9733;</span>
+              <span class="star active">&#9733;</span>
+              <span class="star active">&#9733;</span>
+              <span class="star active">&#9733;</span>
+              <span class="star active">&#9733;</span>
+            </div>
+            <p>
+              O atendimento foi excelente — os pratos chegaram rápido e bem
+              temperados.
+            </p>
+            <p>Pedro, 21 anos</p>
+          </div>
+          <div class="review-card">
+            <div class="stars-static">
+              <span class="star active">&#9733;</span>
+              <span class="star active">&#9733;</span>
+              <span class="star active">&#9733;</span>
+              <span class="star active">&#9733;</span>
+              <span class="star active">&#9733;</span>
+            </div>
+            <p>
+              A costela estava no ponto certo, com aquele sabor defumado
+              incrível. Voltarei com certeza.
+            </p>
+            <p>Mariana, 34 anos</p>
+          </div>
+          <div class="review-card">
+            <div class="stars-static">
+              <span class="star active">&#9733;</span>
+              <span class="star active">&#9733;</span>
+              <span class="star active">&#9733;</span>
+              <span class="star active">&#9733;</span>
+              <span class="star active">&#9733;</span>
+            </div>
+            <p>
+              Ambiente aconchegante, preço justo e sabor de comida caseira.
+              Difícil encontrar isso hoje em dia.
+            </p>
+            <p>Carlos, 47 anos</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESERVE -->
+      <section id="reserve" class="reserve">
+        <div class="reserve-text">
+          <h2>Reserve a sua experiência</h2>
+          <p>
+            Preencha o formulário ao lado para reservar uma mesa. Confirmaremos
+            pelo WhatsApp em até 1 hora.
+          </p>
+        </div>
+        <form>
+          <input type="text" placeholder="Nome completo" required />
+          <input type="email" placeholder="E-mail" required />
+          <input type="tel" placeholder="Telefone" />
+          <div class="form-row">
+            <input type="date" />
+            <input type="time" />
+          </div>
+          <select>
+            <option value="" disabled selected>Número de pessoas</option>
+            <option>2 pessoas</option>
+            <option>3 pessoas</option>
+            <option>4 pessoas</option>
+            <option>+5 pessoas</option>
+          </select>
+          <textarea
+            rows="3"
+            placeholder="Anotações extras (opcional)"
+          ></textarea>
+          <button type="submit">Confirmar reserva</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        <p>&copy; 2026 Sam's Pratos</p>
+        <p>Desenvolvido por Gabriel Alves Faria</p>
+      </div>
+    </footer>
+
+    <a
+      href="https://wa.me/5519988570715?text=Olá!%20Gostaria%20de%20mais%20informações."
+      class="whatsapp-widget"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Fale conosco no WhatsApp"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        width="32"
+        height="32"
+        fill="white"
+        aria-hidden="true"
+      >
+        <path
+          d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.742.002-2.602-1.01-5.05-2.852-6.894C16.638 2.126 14.192.989 11.59.989c-5.443 0-9.87 4.372-9.874 9.744-.002 2.054.545 4.062 1.588 5.826l-.99 3.616 3.733-.981zm11.367-4.645c-.3-.15-1.777-.878-2.053-.978-.276-.1-.477-.15-.677.15-.2.3-.777.978-.952 1.178-.176.2-.351.225-.651.075-1.026-.514-1.838-.919-2.564-2.164-.29-.497-.105-.767.045-.917.135-.135.3-.35.45-.525.15-.175.2-.3.3-.5s.05-.375-.025-.525C11.16 8.97 10.5 7.314 10.225 6.65c-.268-.644-.54-.557-.738-.567a16.33 16.33 0 0 0-1.077-.01c-.375 0-.987.141-1.503.7-.515.558-1.966 1.921-1.966 4.686 0 2.764 2.013 5.432 2.289 5.802.276.369 3.962 6.05 9.593 8.482 1.34.578 2.385.923 3.201 1.182 1.346.428 2.571.368 3.539.223 1.08-.162 2.776-1.134 3.163-2.227.387-1.093.387-2.03.271-2.227-.114-.197-.414-.347-.714-.497z"
+        />
+      </svg>
+    </a>
+  </body>
+</html>

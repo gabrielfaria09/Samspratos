@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8b5e3c" />
+      <stop offset="100%" stop-color="#3d2314" />
+    </linearGradient>
+    <linearGradient id="lamp" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffe29f" />
+      <stop offset="100%" stop-color="#c0712b" />
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="#3f220e" />
+  <rect x="0" y="0" width="1600" height="420" fill="url(#sky)" />
+  <rect x="110" y="90" width="340" height="220" rx="20" fill="#2c190e" opacity="0.85" />
+  <rect x="130" y="110" width="300" height="180" rx="16" fill="#4a2f1c" />
+  <rect x="170" y="140" width="220" height="120" fill="#9f7b5a" />
+  <g opacity="0.9">
+    <rect x="120" y="120" width="20" height="180" fill="#2b180c" />
+    <rect x="160" y="120" width="20" height="180" fill="#2b180c" />
+    <rect x="200" y="120" width="20" height="180" fill="#2b180c" />
+    <rect x="240" y="120" width="20" height="180" fill="#2b180c" />
+    <rect x="280" y="120" width="20" height="180" fill="#2b180c" />
+  </g>
+  <rect x="140" y="225" width="260" height="70" rx="14" fill="#503721" />
+  <rect x="230" y="255" width="90" height="40" rx="12" fill="#7c6239" />
+  <g fill="#2f1b10" opacity="0.95">
+    <rect x="820" y="540" width="560" height="220" rx="24" />
+    <rect x="760" y="520" width="80" height="260" rx="32" />
+  </g>
+  <g fill="#623f28">
+    <rect x="880" y="560" width="160" height="140" rx="20" />
+    <rect x="1100" y="560" width="160" height="140" rx="20" />
+    <rect x="880" y="560" width="380" height="40" rx="18" fill="#7c593d" />
+  </g>
+  <path d="M760 420c0-24 90-110 280-110s280 86 280 110v96H760v-96z" fill="#4b2c16" opacity="0.9" />
+  <circle cx="1120" cy="300" r="86" fill="#c18c58" opacity="0.25" filter="url(#softGlow)" />
+  <g fill="url(#lamp)">
+    <path d="M1120 180c-20 0-36 16-36 36v78h72v-78c0-20-16-36-36-36z" />
+    <path d="M1104 256h32v78h-32z" fill="#a56323" />
+    <ellipse cx="1120" cy="280" rx="44" ry="20" opacity="0.8" />
+  </g>
+  <g fill="#d49c6b" opacity="0.7">
+    <ellipse cx="1120" cy="328" rx="64" ry="30" />
+    <ellipse cx="1120" cy="342" rx="85" ry="22" />
+  </g>
+  <path d="M680 340c-40-10-110 8-160 60l-24 30v200h440V430c0-34-18-68-44-88-58-44-126-62-212-62z" fill="#4c2b15" opacity="0.95" />
+  <path d="M720 380c-30-18-70-14-100 12l-22 18v162h270V434c0-22-12-45-30-58-38-29-77-40-118-40z" fill="#7a543d" />
+  <path d="M700 420h120v24H700z" fill="#c18c58" />
+  <rect x="620" y="620" width="120" height="40" rx="18" fill="#2d1810" />
+  <rect x="880" y="620" width="120" height="40" rx="18" fill="#2d1810" />
+  <rect x="540" y="500" width="80" height="160" rx="18" fill="#3e2618" />
+  <rect x="1100" y="500" width="80" height="160" rx="18" fill="#3e2618" />
+  <line x1="0" y1="120" x2="1600" y2="120" stroke="#4f2f21" stroke-width="12" opacity="0.8" />
+  <line x1="0" y1="220" x2="1600" y2="220" stroke="#4f2f21" stroke-width="10" opacity="0.7" />
+  <line x1="0" y1="320" x2="1600" y2="320" stroke="#4f2f21" stroke-width="8" opacity="0.6" />
+  <circle cx="320" cy="210" r="14" fill="#f2d2a1" opacity="0.9" />
+  <circle cx="480" cy="180" r="10" fill="#f2d2a1" opacity="0.7" />
+  <circle cx="680" cy="130" r="8" fill="#fbe5c2" opacity="0.6" />
+</svg>
