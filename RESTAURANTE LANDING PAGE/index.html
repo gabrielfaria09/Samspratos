@@ -539,7 +539,7 @@
         }
 
         .logo h1 {
-          font-size: 1.5rem;
+          font-size: 1rem;
         }
 
         nav {
@@ -587,6 +587,22 @@
         .whatsapp-widget svg {
           width: 26px;
           height: 26px;
+        }
+
+        .decoration {
+          flex-direction: column; /* Empilha o h2 e a linha verticalmente */
+          gap: 0.75rem;          /* Diminui o espaço entre o texto e a linha */
+          align-items: center;   /* Centraliza ambos na tela */
+          text-align: center;
+        }
+
+        .decoration h2 {
+          white-space: normal;   /* Permite que o texto quebre linha se for muito longo */
+        }
+
+        .h22 {
+          width: 100%;           /* Faz a linha ocupar a largura total do container */
+          max-width: 150px;      /* Opcional: limita o tamanho da linha para não ficar gigante */
         }
       }
 
@@ -830,12 +846,10 @@
           </p>
         </div>
         <form>
-          <input type="text" placeholder="Nome completo" required />
-          <input type="email" placeholder="E-mail" required />
-          <input type="tel" placeholder="Telefone" />
+          <input type="text" placeholder="Seu nome" required />
+          <input type="tel" placeholder="(19) 9xxxx-xxxx" />
           <div class="form-row">
             <input type="date" />
-            <input type="time" />
           </div>
           <select>
             <option value="" disabled selected>Número de pessoas</option>
@@ -846,9 +860,9 @@
           </select>
           <textarea
             rows="3"
-            placeholder="Anotações extras (opcional)"
+            placeholder="Anotações extras (Opcional)"
           ></textarea>
-          <button type="submit">Confirmar reserva</button>
+          <button class="btn-submit" type="submit">Confirmar reserva</button>
         </form>
       </section>
     </main>
@@ -880,4 +894,18 @@
       </svg>
     </a>
   </body>
+
+  <script>
+  // WhatsApp redirect no botão de reserva
+  document.querySelector('.btn-submit').addEventListener('click', () => {
+    const nome = document.querySelector('input[placeholder="Seu nome"]').value || 'não informado';
+    const tel = document.querySelector('input[type="tel"]').value || 'não informado';
+    const data = document.querySelector('input[type="date"]').value || 'não informada';
+    const pessoas = document.querySelectorAll('select')[0].value;
+    const obs = document.querySelector('textarea[placeholder="Anotações extras (Opcional)"]').value;
+
+    const msg = `Olá! Gostaria de fazer uma reserva na Trieste Cucina.%0A%0A*Nome:* ${nome}%0A*Data:* ${data}%0A*Pessoas:* ${pessoas}%0A*Observações:* ${obs || 'nenhuma'}%0A%0AAguardo confirmação!`;
+    window.open(`https://wa.me/5519988570715?text=${msg}`, '_blank');
+  });
+</script>
 </html>
